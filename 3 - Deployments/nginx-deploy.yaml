@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: nginx-deploy
+  labels:
+    app: nginx
+  annotations:
+    description: "This is an nginx deployment for learning"
+    version: "1.0"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+      annotations:
+        description: "This is an nginx pod template for learning"
+        version: "1.0"
+        kubernetes.io/change-cause: "Initial deployment"
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.27.0-alpine
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1 
