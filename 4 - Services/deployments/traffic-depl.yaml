@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: traffic-generator
+  labels:
+    app: traffic-generator
+spec:
+  containers:
+  - name: traffic-generator
+    image: marcos1503/traffic:1.0.1
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    args:
+      - 'color-api-cluster-ip:3000/api' 
+      - '1'
+
